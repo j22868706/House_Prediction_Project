@@ -19,12 +19,14 @@ The beauty of a properly scaled Linear Model is its transparency. Below are the 
 The success of this model heavily relies on the "Data-Centric" approach. Key steps include:
 
 1. **Outlier Removal:** Removed extreme outliers (e.g., massive houses sold for unusually low prices) from the training set to prevent the linear model from skewing.
-2. **Domain-Knowledge Imputation:** * Handled missing values not by blindly using median/mean, but by understanding the context. For example, a missing `PoolQC` or `GarageArea` means the house *lacks* that feature. Filled these with `'None'` or `0` accordingly.
+2. **Domain-Knowledge Imputation:** 
+   * Handled missing values not by blindly using median/mean, but by understanding the context. For example, a missing `PoolQC` or `GarageArea` means the house *lacks* that feature. Filled these with `'None'` or `0` accordingly.
 3. **Feature Engineering:** Created high-impact features based on real estate logic:
    * `TotalSF`: Total square footage (Basement + 1st Floor + 2nd Floor).
    * `Total_Bathrooms`: Combined full and half baths across all floors.
    * `HouseAge`: The effective age of the house at the time of sale (`YrSold` - `YearRemodAdd`).
-4. **Handling Skewness:** * Applied `np.log1p()` transformation to the target variable (`SalePrice`).
+4. **Handling Skewness:** 
+   * Applied `np.log1p()` transformation to the target variable (`SalePrice`).
    * Calculated skewness for all numerical features and applied log transformation to those with a skewness > 0.75 to ensure a normal distribution, which is crucial for linear regression.
 5. **Model Tuning:** Implemented `ElasticNetCV` with 5-Fold Cross-Validation, expanding the search grid for `alpha` and `l1_ratio` to find the optimal balance between Ridge (L2) and Lasso (L1) regularization.
 
